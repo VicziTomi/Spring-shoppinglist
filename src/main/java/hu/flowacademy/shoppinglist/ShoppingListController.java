@@ -4,10 +4,7 @@ import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/list")
@@ -21,6 +18,16 @@ public class ShoppingListController {
         shoppingList.put(item.getId(), item);
         System.err.println(item.toString());
         return ResponseEntity.ok(item);
+    }
+
+    @PostMapping("/addmult")
+    public ResponseEntity<List<ShoppingListItem>> addItems (@RequestBody List<ShoppingListItem> items) {
+        for (ShoppingListItem s: items) {
+            shoppingList.put(s.getId(), s);
+            System.err.println(items);
+
+        }
+        return ResponseEntity.ok(items);
     }
 
     @PutMapping("/modify")
@@ -50,7 +57,12 @@ public class ShoppingListController {
         return ResponseEntity.ok(listItems);
     }
 
-
-
+    @GetMapping("/item/{id}")
+    public ResponseEntity<ShoppingListItem> getSelected (@PathVariable String id) {
+        if (shoppingList.get(id).getId().equals(id)) {
+            return ResponseEntity.ok(shoppingList.get(id));
+        }
+        return new ResponseEntity<ShoppingListItem>(null, null, null); // nem megy!!! új példány kellene, amit utána vissza is ad.
+    }
 
 }
