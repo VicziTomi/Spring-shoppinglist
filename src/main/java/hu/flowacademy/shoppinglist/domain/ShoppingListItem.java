@@ -1,4 +1,4 @@
-package hu.flowacademy.shoppinglist;
+package hu.flowacademy.shoppinglist.domain;
 
 public class ShoppingListItem {
 

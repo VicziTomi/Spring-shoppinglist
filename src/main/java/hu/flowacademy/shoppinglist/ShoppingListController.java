@@ -1,6 +1,6 @@
 package hu.flowacademy.shoppinglist;
 
-import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
+import hu.flowacademy.shoppinglist.domain.ShoppingListItem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
