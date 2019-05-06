@@ -38,7 +38,7 @@ public class ShoppingListController {
 
     @DeleteMapping("/delete/{id}")
     public String seletedItem (@PathVariable String id) {
-        shoppingListService.deleteItem(id);
+        shoppingListService.deleteById(id);
         return "Hepp";
 
     }
@@ -49,8 +49,8 @@ public class ShoppingListController {
     }
 
     @GetMapping("/item/{id}")
-    public ResponseEntity<ShoppingListItem> getSelected (@PathVariable String id) {
-        return ResponseEntity.ok(shoppingListService.getSelectedItem(id));
+    public ResponseEntity<ShoppingListItem> getItem (@PathVariable String id) {
+        return ResponseEntity.ok(shoppingListService.getItem(id));
     }
 
 }
