@@ -3,6 +3,7 @@ package hu.flowacademy.shoppinglist.repository;
 import hu.flowacademy.shoppinglist.domain.ShoppingListItem;
 import hu.flowacademy.shoppinglist.exception.ShoppingListItemMismatchException;
 import hu.flowacademy.shoppinglist.exception.ShoppingListItemNotFoundException;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,37 +12,16 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ShoppingListRepository {
+public interface ShoppingListRepository extends JpaRepository<ShoppingListItem, String> {
 
-    private Map<String, ShoppingListItem> shoppingList = new HashMap<>();
+    void deleteById(String id);
 
-    public ShoppingListItem addItem(ShoppingListItem item) {
-        shoppingList.put(item.getId(), item);
-        return item;
-    }
+    // ShoppingListItem getItem(String id);
 
-    public ShoppingListItem modifyItem (ShoppingListItem modItem) {
-        shoppingList.remove(modItem.getId());
-        shoppingList.put(modItem.getId(), modItem);
-        return modItem;
-    }
+    // ShoppingListItem save(ShoppingListItem item);
 
-    public String deleteItem (String id) {
-        if (shoppingList.get(id).getId().equals(id)) {
-            shoppingList.remove(id);
-            return id;
-        }
-        throw new ShoppingListItemMismatchException(id);
-    }
+    // ShoppingListItem modifyItem(ShoppingListItem item);
 
-    public List<ShoppingListItem> getAllItems () {
-        return new ArrayList<>(shoppingList.values());
-    }
+    // List<ShoppingListItem> allItems();
 
-    public ShoppingListItem getSelectedItem (String id) {
-        if (shoppingList.get(id).getId().equals(id)) {
-            return shoppingList.get(id);
-        }
-        throw new ShoppingListItemMismatchException(id);
-    }
 }

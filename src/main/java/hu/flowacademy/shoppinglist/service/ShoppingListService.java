@@ -1,8 +1,7 @@
-package hu.flowacademy.shoppinglist;
+package hu.flowacademy.shoppinglist.service;
 
 import hu.flowacademy.shoppinglist.domain.ShoppingListItem;
 import hu.flowacademy.shoppinglist.exception.ShoppingListItemMismatchException;
-import hu.flowacademy.shoppinglist.exception.ShoppingListItemNotFoundException;
 import hu.flowacademy.shoppinglist.repository.ShoppingListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,18 +14,18 @@ public class ShoppingListService {
     @Autowired
     public ShoppingListRepository shoppingListRepository;
 
-    public ShoppingListItem addItem(ShoppingListItem item) {
-        return shoppingListRepository.addItem(item);
+    public ShoppingListItem save(ShoppingListItem item) {
+        return shoppingListRepository.save(item);
     }
 
-    public ShoppingListItem getItem(String id) {
+    public ShoppingListItem getOneItem(String id) {
         if (shoppingListRepository.findById(id).isPresent()) {
-            return shoppingListRepository.getItem(id);
+            return shoppingListRepository.findById(id).get();
         }
         throw new ShoppingListItemMismatchException(id);
     }
 
-    public void deleteById(String id) {
+    public void delete(String id) {
         try {
             shoppingListRepository.deleteById(id);
         } catch (Exception e) {
@@ -34,12 +33,16 @@ public class ShoppingListService {
         }
     }
 
-    public List<ShoppingListItem> getAllItems() {
-        return shoppingListRepository.getAllItems();
+    public List<ShoppingListItem> allItems() {
+        return shoppingListRepository.findAll();
     }
 
+    /*
     public ShoppingListItem modifyItem(ShoppingListItem item) {
         return shoppingListRepository.modifyItem(item);
     }
+
+     */
+
 
 }

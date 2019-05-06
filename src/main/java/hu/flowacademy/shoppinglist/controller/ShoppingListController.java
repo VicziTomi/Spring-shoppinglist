@@ -1,5 +1,6 @@
-package hu.flowacademy.shoppinglist;
+package hu.flowacademy.shoppinglist.controller;
 
+import hu.flowacademy.shoppinglist.service.ShoppingListService;
 import hu.flowacademy.shoppinglist.domain.ShoppingListItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ShoppingListController {
 
     @PostMapping("/add")
     public ResponseEntity<ShoppingListItem> addItem (@RequestBody ShoppingListItem item) {
-        return ResponseEntity.ok(shoppingListService.addItem(item));
+        return ResponseEntity.ok(shoppingListService.save(item));
     }
 
     @PostMapping("/addmult")
@@ -31,26 +32,29 @@ public class ShoppingListController {
         return ResponseEntity.ok(items);
     }
 
-    @PutMapping("/modify")
-    public ResponseEntity<ShoppingListItem> modifyItem (@RequestBody ShoppingListItem item) {
-        return ResponseEntity.ok(shoppingListService.modifyItem(item));
-    }
-
     @DeleteMapping("/delete/{id}")
     public String seletedItem (@PathVariable String id) {
-        shoppingListService.deleteById(id);
+        shoppingListService.delete(id);
         return "Hepp";
 
     }
 
-    @GetMapping("/allitems")
-    public ResponseEntity<List<ShoppingListItem>> allitems () {
-        return ResponseEntity.ok(shoppingListService.getAllItems());
-    }
-
     @GetMapping("/item/{id}")
     public ResponseEntity<ShoppingListItem> getItem (@PathVariable String id) {
-        return ResponseEntity.ok(shoppingListService.getItem(id));
+        return ResponseEntity.ok(shoppingListService.getOneItem(id));
     }
+
+
+    @GetMapping("/allitems")
+    public ResponseEntity<List<ShoppingListItem>> allItems () {
+        return ResponseEntity.ok(shoppingListService.allItems());
+    }
+
+    /*
+    @PutMapping("/modify")
+    public ResponseEntity<ShoppingListItem> modifyItem (@RequestBody ShoppingListItem item) {
+        return ResponseEntity.ok(shoppingListService.modifyItem(item));
+    }
+    */
 
 }
