@@ -1,6 +1,7 @@
 package hu.flowacademy.shoppinglist;
 
 import hu.flowacademy.shoppinglist.domain.ShoppingListItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,12 @@ public class ShoppingListController {
 
     private Map<String, ShoppingListItem> shoppingList = new HashMap<>();
 
+    @Autowired
+    private ShoppingListService shoppingListService;
 
     @PostMapping("/add")
     public ResponseEntity<ShoppingListItem> addItem (@RequestBody ShoppingListItem item) {
-        shoppingList.put(item.getId(), item);
-        System.err.println(item.toString());
-        return ResponseEntity.ok(item);
+        return ResponseEntity.ok(shoppingListService.addItem(item));
     }
 
     @PostMapping("/addmult")
@@ -32,37 +33,24 @@ public class ShoppingListController {
 
     @PutMapping("/modify")
     public ResponseEntity<ShoppingListItem> modifyItem (@RequestBody ShoppingListItem item) {
-        ShoppingListItem modItem = shoppingList.get(item.getId());
-        if (modItem != null) {
-            shoppingList.remove(item.getId());
-            shoppingList.put(item.getId(), item);
-            return ResponseEntity.ok(item);
-        }
-        return ResponseEntity.ok(modItem);
+        return ResponseEntity.ok(shoppingListService.modifyItem(item));
     }
 
     @DeleteMapping("/delete/{id}")
     public String seletedItem (@PathVariable String id) {
-        if (shoppingList.get(id).getId().equals(id)) {
-            shoppingList.remove(id);
-            return id;
-        }
-        return "Delete FAIL";
+        shoppingListService.deleteItem(id);
+        return "Hepp";
 
     }
 
     @GetMapping("/allitems")
     public ResponseEntity<List<ShoppingListItem>> allitems () {
-        List<ShoppingListItem> listItems = new ArrayList<>(shoppingList.values());
-        return ResponseEntity.ok(listItems);
+        return ResponseEntity.ok(shoppingListService.getAllItems());
     }
 
     @GetMapping("/item/{id}")
     public ResponseEntity<ShoppingListItem> getSelected (@PathVariable String id) {
-        if (shoppingList.get(id).getId().equals(id)) {
-            return ResponseEntity.ok(shoppingList.get(id));
-        }
-        return new ResponseEntity<ShoppingListItem>(null, null, null); // nem megy!!! új példány kellene, amit utána vissza is ad.
+        return ResponseEntity.ok(shoppingListService.getSelectedItem(id));
     }
 
 }

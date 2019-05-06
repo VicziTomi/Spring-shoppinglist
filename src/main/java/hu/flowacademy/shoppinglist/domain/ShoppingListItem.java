@@ -56,4 +56,11 @@ public class ShoppingListItem {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingListItem{" +
+                "id='" + id + '\'' +
+                ", product='" + product;
+    }
 }

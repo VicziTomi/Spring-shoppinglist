@@ -21,15 +21,13 @@ public class ShoppingListRepository {
     }
 
     public ShoppingListItem modifyItem (ShoppingListItem modItem) {
-        if (modItem.getId() != null) {
-            shoppingList.remove(modItem.getId());
-            shoppingList.put(modItem.getId(), modItem);
-        }
-        throw new ShoppingListItemNotFoundException(modItem);
+        shoppingList.remove(modItem.getId());
+        shoppingList.put(modItem.getId(), modItem);
+        return modItem;
     }
 
     public String deleteItem (String id) {
-        if (shoppingList.get(id).equals(id)) {
+        if (shoppingList.get(id).getId().equals(id)) {
             shoppingList.remove(id);
             return id;
         }
@@ -41,7 +39,7 @@ public class ShoppingListRepository {
     }
 
     public ShoppingListItem getSelectedItem (String id) {
-        if (shoppingList.get(id).equals(id)) {
+        if (shoppingList.get(id).getId().equals(id)) {
             return shoppingList.get(id);
         }
         throw new ShoppingListItemMismatchException(id);

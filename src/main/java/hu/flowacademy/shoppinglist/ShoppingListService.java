@@ -3,9 +3,11 @@ package hu.flowacademy.shoppinglist;
 import hu.flowacademy.shoppinglist.domain.ShoppingListItem;
 import hu.flowacademy.shoppinglist.repository.ShoppingListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ShoppingListService {
 
     @Autowired
