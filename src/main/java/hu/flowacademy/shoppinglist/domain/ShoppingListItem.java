@@ -1,9 +1,6 @@
 package hu.flowacademy.shoppinglist.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "shoppinglist_item")
@@ -27,6 +24,32 @@ public class ShoppingListItem {
 
     @Column()
     private String comment;
+
+    @OneToOne
+    @JoinColumn(name = "user_name", foreignKey = @ForeignKey(name = "fk_shoppinglistitem_user"))
+    private Users user;
+
+    public ShoppingListItem() {
+    }
+
+
+    public ShoppingListItem(String id, String product, String productCathegory, int quantity, int price, String comment, Users user) {
+        this.id = id;
+        this.product = product;
+        this.productCathegory = productCathegory;
+        this.quantity = quantity;
+        this.price = price;
+        this.comment = comment;
+        this.user = user;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
     public String getId() {
         return id;

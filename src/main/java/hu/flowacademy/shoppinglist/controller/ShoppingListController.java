@@ -50,6 +50,11 @@ public class ShoppingListController {
         return ResponseEntity.ok(shoppingListService.allItems());
     }
 
+    @GetMapping("/items-by-user/{name}")
+    public int itemsByUser(@PathVariable  String name) {
+        return shoppingListService.ShoppingItemsByGivenUser(name);
+    }
+
     /*
     @PutMapping("/modify")
     public ResponseEntity<ShoppingListItem> modifyItem (@RequestBody ShoppingListItem item) {

@@ -37,6 +37,10 @@ public class ShoppingListService {
         return shoppingListRepository.findAll();
     }
 
+    public int ShoppingItemsByGivenUser(String name) {
+        return shoppingListRepository.ShoppingItemsByGivenUser(name);
+    }
+
     /*
     public ShoppingListItem modifyItem(ShoppingListItem item) {
         return shoppingListRepository.modifyItem(item);

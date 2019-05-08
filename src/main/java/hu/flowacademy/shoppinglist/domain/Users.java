@@ -20,6 +20,15 @@ public class Users {
     @Column(name = "full_name")
     private String fullName;
 
+    public Users() {
+    }
+
+    public Users(String userName, String password, String fullName) {
+        this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
